@@ -43,7 +43,7 @@ function App() {
             />
           </div>
 
-          <Link to="/ " className="block mx-auto mt-10 px-10 py-2.5 border border-[#aaa] rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white cursor-pointer transition-colors">
+          <Link to="/" className="block mx-auto mt-6 w-fit text-center px-10 py-2.5 border border-[#aaa] rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white cursor-pointer transition-colors">
             Ready
           </Link>
 
