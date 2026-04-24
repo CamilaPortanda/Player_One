@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Barlow';
+    margin: 0;
+}
+
+header {
+    background-color: #FCFCFC;
+    padding: 15px 30px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.20);
+}
+
+header img {
+    height: 50px;
+}
