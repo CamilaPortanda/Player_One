@@ -5,6 +5,8 @@ import MainPage from './pages/MainPage'
 import GamePage from './pages/GamePage'
 import ProfilePage from './pages/ProfilePage'
 import Dashboard from './pages/Dashboard'
+import ProductsPage from './pages/ProductsPage'
+
 
 function App() {
   return (
@@ -14,6 +16,9 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/gamePage" element={<GamePage />} />
+        <Route path="/profilePage" element={<ProfilePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/productsPage" element={<ProductsPage />} />
       </Routes>
     </BrowserRouter>
   )
