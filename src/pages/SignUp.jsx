@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import logo from '../assets/rockwell_automation_logo.png'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header'
 
 function App() {
   return (
     <div className="bg-[#9B0032] min-h-screen">
-      <header className='border-b-8 border-[#CD163F]'>
-        <img src={logo} alt="Rockwell Automation Logo" />
-      </header>
+      <Header />
       <main className="flex justify-center items-center min-h-[calc(100vh-80px)]">
         <div className="bg-[#fcfcfc] rounded-2xl p-10 w-[550px] shadow-[0px_4px_12px_rgba(0,0,0,0.20)]">
           
