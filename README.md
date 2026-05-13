@@ -138,6 +138,7 @@ Player_One_Frontend/
 | /signUp | SignUp | Registro de nuevos usuarios |
 | /logIn | LogIn | Inicio de sesión |
 | /gamePage | GamePage | Página principal del videojuego |
+| /profilePage | ProfilePage | Página de perfil del usuario |
 
 ---
 
