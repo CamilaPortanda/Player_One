@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import logo from '../assets/rockwell_automation_logo.png'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
-function App() {
+function SignUp() {
   return (
     <div className="bg-[#9B0032] min-h-screen">
       <Header />
@@ -101,4 +100,4 @@ function App() {
   )
 }
 
-export default App
+export default SignUp
