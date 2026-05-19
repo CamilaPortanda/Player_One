@@ -43,7 +43,7 @@ function ProfilePage() {
     const user = MOCK_USER
  
     return (
-        <div className="bg-[#ECECEC] min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col">
             <Header />
  
             <main className="flex-1 flex flex-col justify-center px-10 md:px-20 py-12">

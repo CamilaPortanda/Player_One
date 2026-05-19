@@ -51,6 +51,21 @@ npm i react-router-dom
 npm i -D tailwindcss @tailwindcss/vite
 ```
 
+## Dependencias de estilos
+
+```bash
+npm install axios
+```
+# Variables de entorno
+
+Crear un archivo `.env` en la raíz del proyecto.
+
+## Ejemplo
+
+```env
+VITE_API_URL=http://localhost:2000
+```
+
 ---
 
 # Configuración de Tailwind
@@ -116,6 +131,7 @@ Player_One_Frontend/
 │   ├── output.jsx
 │   └── index.css
 │
+├── .env
 ├── node_modules/
 ├── package.json
 ├── package-lock.json
@@ -138,7 +154,10 @@ Player_One_Frontend/
 | /signUp | SignUp | Registro de nuevos usuarios |
 | /logIn | LogIn | Inicio de sesión |
 | /gamePage | GamePage | Página principal del videojuego |
+| /dashboard | Dashboard | Dashboard de gráficas para admin | 
 | /profilePage | ProfilePage | Página de perfil del usuario |
+| /contactPage | ContactPage | Página de contacto de la empresa |
+| /productsPage | ProductsPage | Página de productos Rockwell |
 
 ---
 
@@ -147,8 +166,12 @@ Player_One_Frontend/
 ```jsx
 <Route path="/" element={<MainPage />} />
 <Route path="/signUp" element={<SignUp />} />
-<Route path="/login" element={<LogIn />} />
+<Route path="/logIn" element={<LogIn />} />
 <Route path="/gamePage" element={<GamePage />} />
+<Route path="/profilePage" element={<ProfilePage />} />
+<Route path="/dashboard" element={<Dashboard />} />
+<Route path="/productsPage" element={<ProductsPage />} />
+<Route path="/contactPage" element={<ContactPage />} />
 ```
 ---
 

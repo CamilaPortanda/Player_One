@@ -28,16 +28,6 @@ function GamePage() {
  
             <main className="flex flex-col justify-center items-center min-h-[calc(100vh-80px)] py-8 px-4">
  
-                {/* Back link — above the game container */}
-                <div className="w-full max-w-[960px] mb-3">
-                    <Link
-                        to="/"
-                        className="text-white/80 hover:text-white text-sm no-underline transition-colors duration-200"
-                    >
-                        ← Back
-                    </Link>
-                </div>
- 
                 {/* Game container */}
                 <div
                     className="relative bg-black rounded-2xl overflow-hidden shadow-[0px_8px_32px_rgba(0,0,0,0.45)]"
@@ -68,12 +58,12 @@ function GamePage() {
  
                 {/* Controls bar */}
                 <div className="w-full max-w-[960px] mt-3 flex justify-between items-center">
-                    <p className="text-white/50 text-xs">
+                    <p className="text-white/80 text-xs">
                         Use keyboard & mouse to interact with the game
                     </p>
                     <button
                         onClick={handleFullscreen}
-                        className="flex items-center gap-2 text-white/70 hover:text-white text-xs border border-white/20 hover:border-white/50 rounded-lg px-3 py-1.5 transition-all duration-200 bg-white/5 hover:bg-white/10"
+                        className="flex items-center gap-2 text-white/80 hover:text-white text-xs border border-white/50 hover:border-white/80 rounded-lg px-3 py-1.5 transition-all duration-200 bg-white/5 hover:bg-white/10"
                     >
                         {/* Fullscreen icon */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -6,6 +6,7 @@ import GamePage from './pages/GamePage'
 import ProfilePage from './pages/ProfilePage'
 import Dashboard from './pages/Dashboard'
 import ProductsPage from './pages/ProductsPage'
+import ContactPage from './pages/ContactPage'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profilePage" element={<ProfilePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/productsPage" element={<ProductsPage />} />
+        <Route path="/contactPage" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>
   )
