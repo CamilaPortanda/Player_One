@@ -128,6 +128,13 @@ npm run preview
 Player_One_Frontend/
 │
 ├── public/
+│   ├── PhoneNumberMetadata.xml
+│   └── unity/
+│       └── game
+│           ├── *.data
+│           ├── *loader.js
+│           ├── *.wasm
+│           └── *.framework.js
 ├── src/
 │   ├── assets/
 │   ├── components/
