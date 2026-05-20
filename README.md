@@ -12,6 +12,7 @@ Frontend desarrollado con React, Vite, React Router, Tailwind CSS y CSS personal
 - Tailwind CSS
 - CSS
 - JavaScript
+- Axios
 
 ---
 
