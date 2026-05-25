@@ -1,7 +1,19 @@
 import logo from '../assets/rockwell_automation_logo.png'
 import { Link } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 function Header() {
+  const token = localStorage.getItem('token')
+  const avatarUrl = localStorage.getItem('avatarUrl')
+  let autenticado = false
+
+  try {
+    const decoded = jwtDecode(token)
+    autenticado = decoded.exp * 1000 > Date.now()
+  } catch (err) {
+    autenticado = false
+  }
+
   return (
     <header className="flex items-center justify-between px-8 py-4 border-b-8 border-[#CD163F]">
             <Link to="/">
@@ -11,7 +23,12 @@ function Header() {
               <Link to="/contactPage" className="px-7 py-2.5 border border-[#aaa] rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm cursor-pointer text-white transition-colors">
                 Contact Us
               </Link>
-              <Link to="/profilePage" className="w-10 h-10 bg-[#5CC334] hover:bg-green-400 rounded-full cursor-pointer">
+              <Link to={autenticado ? '/profilePage' : '/logIn'} 
+                className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-green-400 flex-shrink-0">
+                {autenticado && avatarUrl
+                  ? <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  : <div className="w-full h-full bg-[#5CC334]" />
+                }
               </Link>
             </div>
           </header>

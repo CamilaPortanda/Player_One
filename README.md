@@ -57,6 +57,12 @@ npm i -D tailwindcss @tailwindcss/vite
 ```bash
 npm install axios
 ```
+
+## Dependencias para decodear token
+```bash
+npm install jwt-decode
+```
+
 # Variables de entorno
 
 Crear un archivo `.env` en la raíz del proyecto.
