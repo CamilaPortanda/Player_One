@@ -56,36 +56,29 @@ function SignUp() {
       setCountry(selected?.name || ""); // "Mexico" en vez de "MX"
     };
 
-  const handleRegister = async () => {
+   const handleRegister = async () => {
     setError('');
-
+ 
     if (!name || !lastName || !email || !password || !phone || !industry || !company || !jobPosition) {
       setError('Por favor, completa todos los campos');
       return;
     }
-
-    try {
-      // 4. Armamos el JSON exacto que pide el backend
-      await axios.post(`${apiBase}/api/auth/registro`, {
-        first_name:   name,
-        last_name:    lastName,
-        email:        email,
-        password:     password,
-        phone:        `${dialCode}${phone}`,
-        industry:     industry,
-        company:      company,
-        job_position: jobPosition,
-        country:      country,   // fijo por ahora, lo puedes volver dinámico después
-        user_type_id: 1           // fijo también, ajusta según tu lógica
-      });
-
-      // 5. Si el registro fue exitoso, mandamos al usuario al login
-      navigate("/logIn");
-
-    } catch (err) {
-      // 6. Si el backend respondió con un error, lo mostramos
-      setError(err.response?.data?.error || "Error de conexión");
-    }
+ 
+    // Save data and go to profile picture selection
+    sessionStorage.setItem('signUpData', JSON.stringify({
+      first_name:   name,
+      last_name:    lastName,
+      email:        email,
+      password:     password,
+      phone:        `${dialCode}${phone}`,
+      industry:     industry,
+      company:      company,
+      job_position: jobPosition,
+      country:      country,
+      user_type_id: 1
+    }))
+ 
+    navigate('/choosePfp')
   };
 
   return (

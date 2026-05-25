@@ -7,7 +7,7 @@ import ProfilePage from './pages/ProfilePage'
 import Dashboard from './pages/Dashboard'
 import ProductsPage from './pages/ProductsPage'
 import ContactPage from './pages/ContactPage'
-
+import ChoosePfp from './pages/ChoosePfp'
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/productsPage" element={<ProductsPage />} />
         <Route path="/contactPage" element={<ContactPage />} />
+        <Route path="/choosePfp" element={<ChoosePfp />} />
       </Routes>
     </BrowserRouter>
   )
