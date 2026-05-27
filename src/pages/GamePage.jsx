@@ -4,8 +4,22 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
  
 function GamePage() {
+<<<<<<< Updated upstream
     const [isLoaded, setIsLoaded] = useState(false)
     const [isFullscreen, setIsFullscreen] = useState(false)
+=======
+  const {
+    unityProvider,
+    isLoaded,
+    loadingProgression,
+    requestFullscreen,
+  } = useUnityContext({
+    loaderUrl: "/unity/game/VJ_v3.loader.js",
+    dataUrl: "/unity/game/VJ_v3.data",
+    frameworkUrl: "/unity/game/VJ_v3.framework.js",
+    codeUrl: "/unity/game/VJ_v3.wasm",
+  });
+>>>>>>> Stashed changes
  
     // CONFIGURATION — replace this URL with your Unity WebGL build path
     // Options:
