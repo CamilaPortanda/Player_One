@@ -56,27 +56,32 @@ function SignUp() {
       setCountry(selected?.name || ""); // "Mexico" en vez de "MX"
     };
 
-   const handleRegister = async () => {
-    setError('');
- 
-    if (!name || !lastName || !email || !password || !phone || !industry || !company || !jobPosition) {
-      setError('Por favor, completa todos los campos');
-      return;
-    }
- 
-    // Save data and go to profile picture selection
-    sessionStorage.setItem('signUpData', JSON.stringify({
-      first_name:   name,
-      last_name:    lastName,
-      email:        email,
-      password:     password,
-      phone:        `${dialCode}${phone}`,
-      industry:     industry,
-      company:      company,
-      job_position: jobPosition,
-      country:      country,
-      user_type_id: 1
-    }))
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const handleRegister = async () => {
+      setError('');
+  
+      if (!name || !lastName || !email || !password || !phone || !industry || !company || !jobPosition) {
+        setError('Por favor, completa todos los campos');
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        setError('Please enter a valid email address');
+        return;
+      }
+    
+      // Save data and go to profile picture selection
+      sessionStorage.setItem('signUpData', JSON.stringify({
+        first_name:   name,
+        last_name:    lastName,
+        email:        email,
+        password:     password,
+        phone:        `${dialCode}${phone}`,
+        industry:     industry,
+        company:      company,
+        job_position: jobPosition,
+        country:      country
+      }))
  
     navigate('/choosePfp')
   };
