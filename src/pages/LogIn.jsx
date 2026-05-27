@@ -20,6 +20,7 @@ function LogIn() {
 
       const token = res.data.token
       localStorage.setItem('token', token);
+      localStorage.setItem('permisos', JSON.stringify(res.data.permisos));
 
       // Fetch perfil y pfps para guardar la foto
       const headers = { Authorization: `Bearer ${token}` }

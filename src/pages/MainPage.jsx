@@ -6,7 +6,8 @@ import heroImg from '../assets/foto_rockwell.png'
  
 function MainPage() {
   const [autenticado, setAutenticado] = useState(false);
- 
+  const permisos = JSON.parse(localStorage.getItem('permisos') || '{}')
+
   useEffect(() => {
     const token = localStorage.getItem("token");
  
@@ -42,15 +43,22 @@ function MainPage() {
             Is your company really <span className="italic">protected?</span>
           </h1>
           <p className="text-[#003e7e] text-2xl mt-4">Find out through our interactive experience.</p>
-          {autenticado ? (
-            <Link to="/gamePage" className="mt-8 px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
-              Try our videogame
-            </Link>
-          ) : (
-            <Link to="/logIn" className="mt-8 px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
-              Sign In
-            </Link>
-          )}
+          <div className="flex gap-3 mt-8">
+            {autenticado ? (
+              <Link to="/gamePage" className="px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
+                Try our videogame
+              </Link>
+            ) : (
+              <Link to="/logIn" className="px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
+                Sign In
+              </Link>
+            )}
+            {autenticado && permisos.dashboard && (
+              <Link to="/dashboard" className="px-7 py-2.5 rounded-[20px] bg-[#9B0032] hover:bg-[#9B0032]/70 text-sm text-white transition-colors w-fit">
+                Check Dashboard
+              </Link>
+            )}
+          </div>
         </div>
  
         {/* Hero image container */}

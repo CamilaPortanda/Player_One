@@ -16,12 +16,6 @@ function ChoosePfp() {
       .then(res => setPfps(res.data))
       .catch(() => setError('No se pudieron cargar las fotos'))
   }, [])
-
-  const getDriveUrl = (url) => {
-    const match = url.match(/id=([^&]+)/)
-    if (!match) return url
-    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w300`
-  }
  
   const handleReady = async (pfp_id) => {
     try {
@@ -76,7 +70,7 @@ function ChoosePfp() {
                 {/* Left — previous image preview */}
                 <div className="w-16 h-16 rounded-full overflow-hidden opacity-40 scale-90 transition-all flex-shrink-0 bg-gray-200">
                   <img
-                    src={getDriveUrl(pfps[(selectedIndex - 1 + pfps.length) % pfps.length]?.image_link)}
+                    src={pfps[(selectedIndex - 1 + pfps.length) % pfps.length]?.image_link}
                     alt="prev"
                     className="w-full h-full object-cover"
                   />
@@ -85,7 +79,7 @@ function ChoosePfp() {
                 {/* Center — selected */}
                 <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-[#003e7e] flex-shrink-0 bg-gray-200 transition-all">
                   <img
-                    src={getDriveUrl(pfps[selectedIndex]?.image_link)}
+                    src={pfps[selectedIndex]?.image_link}
                     alt="selected"
                     className="w-full h-full object-cover"
                   />
@@ -94,7 +88,7 @@ function ChoosePfp() {
                 {/* Right — next image preview */}
                 <div className="w-16 h-16 rounded-full overflow-hidden opacity-40 scale-90 transition-all flex-shrink-0 bg-gray-200">
                   <img
-                    src={getDriveUrl(pfps[(selectedIndex + 1) % pfps.length]?.image_link)}
+                    src={pfps[(selectedIndex + 1) % pfps.length]?.image_link}
                     alt="next"
                     className="w-full h-full object-cover"
                   />
