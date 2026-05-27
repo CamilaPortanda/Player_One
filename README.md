@@ -12,6 +12,7 @@ Frontend desarrollado con React, Vite, React Router, Tailwind CSS y CSS personal
 - Tailwind CSS
 - CSS
 - JavaScript
+- Axios
 
 ---
 
@@ -56,6 +57,12 @@ npm i -D tailwindcss @tailwindcss/vite
 ```bash
 npm install axios
 ```
+
+## Dependencias para decodear token
+```bash
+npm install jwt-decode
+```
+
 # Variables de entorno
 
 Crear un archivo `.env` en la raíz del proyecto.
@@ -121,6 +128,13 @@ npm run preview
 Player_One_Frontend/
 │
 ├── public/
+│   ├── PhoneNumberMetadata.xml
+│   └── unity/
+│       └── game
+│           ├── *.data
+│           ├── *loader.js
+│           ├── *.wasm
+│           └── *.framework.js
 ├── src/
 │   ├── assets/
 │   ├── components/

@@ -11,17 +11,28 @@ function LogIn() {
 
 
   const handleLogin = async () => {
-    setError(''); 
-    try{
+    setError('');
+    try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + '/api/auth/login',
-        {email, password}
+        { email, password }
       );
 
-      localStorage.setItem('token', res.data.token);
+      const token = res.data.token
+      localStorage.setItem('token', token);
+      localStorage.setItem('permisos', JSON.stringify(res.data.permisos));
+
+      // Fetch perfil y pfps para guardar la foto
+      const headers = { Authorization: `Bearer ${token}` }
+      const [perfilRes, pfpsRes] = await Promise.all([
+        axios.get(import.meta.env.VITE_API_URL + '/api/usuarios/perfil', { headers }),
+        axios.get(import.meta.env.VITE_API_URL + '/api/pfps'),
+      ])
+      const userPfp = pfpsRes.data.find(p => p.pfp_id === perfilRes.data.pfp_id)
+      if (userPfp) localStorage.setItem('avatarUrl', userPfp.image_link)
 
       navigate('/');
-    }catch (err){
+    } catch (err) {
       setError(err.response?.data?.error || 'Error de conexión');
     }
   }
