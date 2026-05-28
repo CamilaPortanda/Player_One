@@ -11,7 +11,8 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [industry, setIndustry] = useState('');
+  const [industryId, setIndustryId] = useState('');
+  const [industries, setIndustries] = useState([]);
   const [company, setCompany] = useState('');
   const [jobPosition, setJobPosition] = useState('');
   const [country, setCountry] = useState('');
@@ -22,6 +23,7 @@ function SignUp() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Fetch countries
   useEffect(() => {
     fetch("/PhoneNumberMetadata.xml")
       .then(res => res.text())
@@ -43,16 +45,18 @@ function SignUp() {
       });
   }, []);
 
-  const handleDialChange = (e) => {
-    const selected = countries.find(c => c.dialCode === e.target.value);
-    setDialCode(e.target.value);
-    setCountry(selected?.name || "");
-  };
+  // Fetch industries from backend
+  useEffect(() => {
+    axios.get(`${apiBase}/api/industries`)
+      .then(res => setIndustries(res.data))
+      .catch(() => setError('Could not load industries'))
+  }, [])
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   const handleRegister = async () => {
     setError('');
-    if (!name || !lastName || !email || !password || !phone || !industry || !company || !jobPosition) {
+    if (!name || !lastName || !email || !password || !phone || !industryId || !company || !jobPosition) {
       setError('Por favor, completa todos los campos');
       return;
     }
@@ -66,7 +70,7 @@ function SignUp() {
       email:        email,
       password:     password,
       phone:        `${dialCode}${phone}`,
-      industry:     industry,
+      industry_id:  Number(industryId),
       company:      company,
       job_position: jobPosition,
       country:      country
@@ -101,7 +105,6 @@ function SignUp() {
             </div>
           ) : null}
 
-          {/* Grid — 1 col en móvil, 2 en sm+ */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
 
             <input type="text" placeholder="Name(s)" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
@@ -142,17 +145,18 @@ function SignUp() {
 
             <input type="text" placeholder="Last Name(s)" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} />
 
-            <select id="selector_industry" value={industry} onChange={(e) => setIndustry(e.target.value)} className={inputClass}>
+            {/* Industry from backend */}
+            <select
+              value={industryId}
+              onChange={(e) => setIndustryId(e.target.value)}
+              className={inputClass}
+            >
               <option value="">Industry</option>
-              <option value="Automotive">Automotive</option>
-              <option value="Food and Beverage">Food and Beverage</option>
-              <option value="Oil and Gas">Oil and Gas</option>
-              <option value="Pharmaceuticals">Pharmaceuticals</option>
-              <option value="Semiconductors and Electronics">Semiconductors and Electronics</option>
-              <option value="Energy and Power Generation">Energy and Power Generation</option>
-              <option value="Mining, Minerals and Cement">Mining, Minerals and Cement</option>
-              <option value="Warehousing and Logistics">Warehousing and Logistics</option>
-              <option value="Other">Other</option>
+              {industries.map(ind => (
+                <option key={ind.industry_id} value={ind.industry_id}>
+                  {ind.industry_name}
+                </option>
+              ))}
             </select>
 
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
@@ -161,7 +165,7 @@ function SignUp() {
 
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} />
 
-            <select id="selector_jobPosition" value={jobPosition} onChange={(e) => setJobPosition(e.target.value)} className={inputClass}>
+            <select value={jobPosition} onChange={(e) => setJobPosition(e.target.value)} className={inputClass}>
               <option value="">Job Position</option>
               <option value="Administrative">Administrative</option>
               <option value="Technician">Technician</option>
