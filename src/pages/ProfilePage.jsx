@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Header from '../components/Header'
 import defaultAvatar from '../assets/profilePic.png'
- 
+
 const MailIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -33,7 +33,7 @@ const EditIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
   </svg>
 )
- 
+
 function InfoRow({ icon, label, value }) {
   return (
     <div className="flex items-center gap-4 py-3">
@@ -47,17 +47,16 @@ function InfoRow({ icon, label, value }) {
     </div>
   )
 }
- 
-// ── PFP Modal ──────────────────────────────────────────────
+
 function PfpModal({ pfps, currentPfpId, userId, onClose, onSaved }) {
   const initialIndex = pfps.findIndex(p => p.pfp_id === currentPfpId)
   const [selectedIndex, setSelectedIndex] = useState(initialIndex >= 0 ? initialIndex : 0)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
- 
+
   const prev = () => setSelectedIndex(i => (i - 1 + pfps.length) % pfps.length)
   const next = () => setSelectedIndex(i => (i + 1) % pfps.length)
- 
+
   const handleSave = async () => {
     setSaving(true)
     setError('')
@@ -75,62 +74,44 @@ function PfpModal({ pfps, currentPfpId, userId, onClose, onSaved }) {
       setSaving(false)
     }
   }
- 
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-2xl p-8 w-[420px] shadow-xl flex flex-col items-center gap-6">
- 
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="bg-white rounded-2xl p-6 md:p-8 w-full max-w-[420px] shadow-xl flex flex-col items-center gap-6">
         <h3 className="text-xl font-bold text-[#003e7e]">Change profile picture</h3>
- 
-        {/* Carousel */}
         <div className="flex items-center gap-4">
           <button onClick={prev} className="text-[#003e7e] text-3xl font-bold cursor-pointer hover:text-[#003e7e80]">‹</button>
- 
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden opacity-40 flex-shrink-0 bg-gray-200">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden opacity-40 flex-shrink-0 bg-gray-200">
               <img src={pfps[(selectedIndex - 1 + pfps.length) % pfps.length]?.image_link} alt="prev" className="w-full h-full object-cover" />
             </div>
-            <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-[#003e7e] flex-shrink-0 bg-gray-200">
+            <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden ring-4 ring-[#003e7e] flex-shrink-0 bg-gray-200">
               <img src={pfps[selectedIndex]?.image_link} alt="selected" className="w-full h-full object-cover" />
             </div>
-            <div className="w-14 h-14 rounded-full overflow-hidden opacity-40 flex-shrink-0 bg-gray-200">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden opacity-40 flex-shrink-0 bg-gray-200">
               <img src={pfps[(selectedIndex + 1) % pfps.length]?.image_link} alt="next" className="w-full h-full object-cover" />
             </div>
           </div>
- 
           <button onClick={next} className="text-[#003e7e] text-3xl font-bold cursor-pointer hover:text-[#003e7e80]">›</button>
         </div>
- 
         {error && <p className="text-red-600 text-sm">{error}</p>}
- 
         <div className="flex gap-3 w-full">
-          <button
-            onClick={onClose}
-            className="flex-1 py-2.5 border border-[#bebebe] rounded-[20px] text-sm text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="flex-1 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white cursor-pointer transition-colors disabled:opacity-50"
-          >
+          <button onClick={onClose} className="flex-1 py-2.5 border border-[#bebebe] rounded-[20px] text-sm text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors">Cancel</button>
+          <button onClick={handleSave} disabled={saving} className="flex-1 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white cursor-pointer transition-colors disabled:opacity-50">
             {saving ? 'Saving...' : 'Save'}
           </button>
         </div>
- 
       </div>
     </div>
   )
 }
- 
-// ── Main component ─────────────────────────────────────────
+
 const MINIGAMES = [
   { id: 1, name: 'Minigame 1', color: '#9B0032', bg: 'bg-red-50',   text: 'text-[#9B0032]' },
   { id: 2, name: 'Minigame 2', color: '#003e7e', bg: 'bg-blue-50',  text: 'text-[#003e7e]' },
   { id: 3, name: 'Minigame 3', color: '#16a34a', bg: 'bg-green-50', text: 'text-green-600'  },
 ]
- 
+
 function ProfilePage() {
   const [usuario, setUsuario] = useState(null)
   const [gamesPlayed, setGamesPlayed] = useState(null)
@@ -139,34 +120,34 @@ function ProfilePage() {
   const [pfps, setPfps] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [error, setError] = useState('')
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }
- 
+
         const [perfilRes, gamesRes, pfpsRes] = await Promise.all([
           axios.get(import.meta.env.VITE_API_URL + '/api/usuarios/perfil', { headers }),
           axios.get(import.meta.env.VITE_API_URL + '/api/usuarios/gamesplayed', { headers }),
           axios.get(import.meta.env.VITE_API_URL + '/api/pfps'),
         ])
- 
+
         const scoresRes = await axios.get(
           import.meta.env.VITE_API_URL + '/api/usuarios/bestscores', { headers }
         )
- 
+
         setUsuario(perfilRes.data)
         setGamesPlayed(gamesRes.data.games_played)
         setPfps(pfpsRes.data)
- 
+
         const userPfp = pfpsRes.data.find(p => p.pfp_id === perfilRes.data.pfp_id)
         setAvatarUrl(userPfp?.image_link || null)
- 
+
         const scoresMap = {}
         scoresRes.data.forEach(s => { scoresMap[s.minigame_id] = s.best_score })
         setScores(scoresMap)
- 
+
       } catch (err) {
         console.log(err.response?.status, err.response?.data)
         setError('No se pudo cargar el perfil')
@@ -174,25 +155,25 @@ function ProfilePage() {
     }
     fetchData()
   }, [])
- 
+
   if (error) return (
-    <div className="min-h-screen bg-gray-100"><Header />
+    <div className="min-h-screen"><Header />
       <p className="text-center text-red-600 mt-10">{error}</p>
     </div>
   )
- 
+
   if (!usuario) return (
-    <div className="min-h-screen bg-gray-100"><Header />
+    <div className="min-h-screen"><Header />
       <p className="text-center text-gray-400 mt-10">Loading...</p>
     </div>
   )
- 
+
   const totalScore = Object.values(scores).reduce((acc, s) => acc + Number(s), 0)
- 
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       <Header />
- 
+
       {showModal && (
         <PfpModal
           pfps={pfps}
@@ -205,86 +186,85 @@ function ProfilePage() {
           }}
         />
       )}
- 
-      <main className="px-8 py-8 max-w-none mx-auto">
-        <div className="grid grid-cols-2 gap-8 items-start">
- 
+
+      <main className="px-4 md:px-8 py-6 md:py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
+
           {/* LEFT — profile card */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4">
- 
+          <div className="bg-white rounded-2xl shadow-md p-5 md:p-6 flex flex-col gap-4">
+
             {/* Avatar + name */}
-            <div className="flex items-center gap-5 pb-4 border-b border-gray-100">
+            <div className="flex items-center gap-4 md:gap-5 pb-4 border-b border-gray-100">
               <div className="relative flex-shrink-0">
-                <div className="w-28 h-28 rounded-full ring-4 ring-green-400 overflow-hidden bg-black">
+                <div className="w-20 h-20 md:w-28 md:h-28 rounded-full ring-4 ring-green-400 overflow-hidden bg-black">
                   <img src={avatarUrl || defaultAvatar} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
-                {/* Edit button */}
                 <button
                   onClick={() => setShowModal(true)}
-                  className="absolute bottom-0 right-0 w-8 h-8 bg-[#003e7e] hover:bg-[#003e7e80] rounded-full flex items-center justify-center text-white cursor-pointer transition-colors shadow-md"
+                  className="absolute bottom-0 right-0 w-7 h-7 md:w-8 md:h-8 bg-[#003e7e] hover:bg-[#003e7e80] rounded-full flex items-center justify-center text-white cursor-pointer transition-colors shadow-md"
                 >
                   <EditIcon />
                 </button>
               </div>
               <div>
-                <h2 className="text-2xl font-black text-gray-900 uppercase tracking-wide">
+                <h2 className="text-lg md:text-2xl font-black text-gray-900 uppercase tracking-wide">
                   {usuario.first_name} {usuario.last_name}
                 </h2>
-                <p className="text-md text-gray-400">Player Profile</p>
+                <p className="text-sm md:text-md text-gray-400">Player Profile</p>
               </div>
             </div>
- 
+
             {/* Info rows */}
             <div className="divide-y divide-gray-50">
               <InfoRow icon={<MailIcon />}     label="Email"        value={usuario.email.toLowerCase()} />
               <InfoRow icon={<PhoneIcon />}    label="Phone number" value={usuario.phone} />
               <InfoRow icon={<BuildingIcon />} label="Industry"     value={usuario.industry} />
             </div>
- 
+
             {/* Stats row */}
             <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="bg-green-50 rounded-xl p-4 flex items-center gap-3">
+              <div className="bg-green-50 rounded-xl p-3 md:p-4 flex items-center gap-3">
                 <div className="text-green-500"><GamepadIcon /></div>
                 <div>
-                  <p className="text-md text-gray-500">Games completed</p>
-                  <p className="text-2xl font-black text-green-600">{gamesPlayed ?? '—'}</p>
+                  <p className="text-xs md:text-md text-gray-500">Games completed</p>
+                  <p className="text-xl md:text-2xl font-black text-green-600">{gamesPlayed ?? '—'}</p>
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-xl p-4 flex items-center gap-3">
+              <div className="bg-blue-50 rounded-xl p-3 md:p-4 flex items-center gap-3">
                 <div className="text-[#003e7e]"><TrophyIcon /></div>
                 <div>
-                  <p className="text-md text-gray-500">Total best scores</p>
-                  <p className="text-2xl font-black text-[#003e7e]">{totalScore}</p>
+                  <p className="text-xs md:text-md text-gray-500">Total best scores</p>
+                  <p className="text-xl md:text-2xl font-black text-[#003e7e]">{totalScore}</p>
                 </div>
               </div>
             </div>
- 
+
           </div>
- 
+
           {/* RIGHT — minigame cards */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 md:gap-4">
             {MINIGAMES.map((game) => (
               <div
                 key={game.name}
-                className="bg-white rounded-2xl shadow-sm p-5 flex items-center gap-4 border-l-4 cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center gap-4 border-l-4 cursor-pointer hover:shadow-lg transition-shadow"
                 style={{ borderLeftColor: game.color }}
               >
-                <div className={`w-14 h-14 rounded-full ${game.bg} flex items-center justify-center flex-shrink-0`} style={{ color: game.color }}>
-                  <GamepadIcon className="w-7 h-7" />
+                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-full ${game.bg} flex items-center justify-center flex-shrink-0`} style={{ color: game.color }}>
+                  <GamepadIcon className="w-6 h-6 md:w-7 md:h-7" />
                 </div>
                 <div className="flex-1">
-                  <p className="font-bold text-gray-900 text-xl">{game.name}</p>
-                  <p className="text-md text-gray-400">Best Score</p>
-                  <p className={`text-2xl font-black ${game.text}`}>{scores[game.id] ?? '—'}</p>
+                  <p className="font-bold text-gray-900 text-lg md:text-xl">{game.name}</p>
+                  <p className="text-sm text-gray-400">Best Score</p>
+                  <p className={`text-xl md:text-2xl font-black ${game.text}`}>{scores[game.id] ?? '—'}</p>
                 </div>
               </div>
             ))}
           </div>
- 
+
         </div>
       </main>
     </div>
   )
 }
- 
+
 export default ProfilePage
