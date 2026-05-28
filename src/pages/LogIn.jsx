@@ -1,4 +1,4 @@
-import { use, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import axios from 'axios';
@@ -8,7 +8,6 @@ function LogIn() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); 
   const navigate = useNavigate();  
-
 
   const handleLogin = async () => {
     setError('');
@@ -22,7 +21,6 @@ function LogIn() {
       localStorage.setItem('token', token);
       localStorage.setItem('permisos', JSON.stringify(res.data.permisos));
 
-      // Fetch perfil y pfps para guardar la foto
       const headers = { Authorization: `Bearer ${token}` }
       const [perfilRes, pfpsRes] = await Promise.all([
         axios.get(import.meta.env.VITE_API_URL + '/api/usuarios/perfil', { headers }),
@@ -40,17 +38,17 @@ function LogIn() {
   return (
     <div className="bg-[#9B0032] min-h-screen">
       <Header />
-      <main className="flex justify-center items-center min-h-[calc(100vh-80px)]">
-        <div className="relative flex flex-col justify-center bg-[#fcfcfc] rounded-2xl p-10 w-[550px] h-[450px] shadow-[0px_4px_12px_rgba(0,0,0,0.20)]">
+      <main className="flex justify-center items-center min-h-[calc(100vh-80px)] py-8 px-4">
+        <div className="relative flex flex-col justify-center bg-[#fcfcfc] rounded-2xl p-8 md:p-10 w-full max-w-[550px] min-h-[400px] md:h-[450px] shadow-[0px_4px_12px_rgba(0,0,0,0.20)]">
 
           <Link
             to="/"
-            className="absolute top-10 left-10 text-[#003e7e] hover:text-[#003e7e80] text-sm no-underline"
+            className="absolute top-6 left-6 md:top-10 md:left-10 text-[#003e7e] hover:text-[#003e7e80] text-sm no-underline"
           >
             ← Back
           </Link>
 
-          <h2 className="text-center text-[32px] font-normal mt-2.5 mb-1 text-[#003e7e]">
+          <h2 className="text-center text-[28px] md:text-[32px] font-normal mt-2.5 mb-1 text-[#003e7e]">
             Log In
           </h2>
 
@@ -62,10 +60,7 @@ function LogIn() {
           </p>
 
           {error ? (
-            <div
-              className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 border border-red-100"
-              role="alert"
-            >
+            <div className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 border border-red-100" role="alert">
               {error}
             </div>
           ) : null}
@@ -78,7 +73,7 @@ function LogIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-4/5 px-3.5 py-2.5 border border-[#bebebe] rounded-lg bg-transparent text-sm text-[#003e7e] placeholder-[#003e7e] outline-none"
+              className="w-full sm:w-4/5 px-3.5 py-2.5 border border-[#bebebe] rounded-lg bg-transparent text-sm text-[#003e7e] placeholder-[#003e7e] outline-none"
             />
             <input
               id="login-password"
@@ -87,7 +82,7 @@ function LogIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-4/5 px-3.5 py-2.5 border border-[#bebebe] rounded-lg bg-transparent text-sm text-[#003e7e] placeholder-[#003e7e] outline-none"
+              className="w-full sm:w-4/5 px-3.5 py-2.5 border border-[#bebebe] rounded-lg bg-transparent text-sm text-[#003e7e] placeholder-[#003e7e] outline-none"
             />
           </div>
 
@@ -103,4 +98,5 @@ function LogIn() {
     </div>
   )
 }
+
 export default LogIn
