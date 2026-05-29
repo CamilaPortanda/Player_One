@@ -1,4 +1,6 @@
 import { Unity, useUnityContext } from "react-unity-webgl";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from '../components/Header'
  
 // Fullscreen icon SVG
@@ -100,6 +102,14 @@ const styles = {
 };
  
 function GamePage() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      navigate('/login')
+    }
+  }, [])
   const {
     unityProvider,
     isLoaded,

@@ -145,7 +145,7 @@ export default function ContactSection() {
           </div>
           <div>
             <h3 className="text-2xl font-bold text-[#003e7e] mb-3 mt-4">Connect With Us</h3>
-            <p className="text-lg text-gray-400 mb-4">Follow our progress and explore more about the project.</p>
+            <p className="text-lg text-gray-600 mb-4">Follow our progress and explore more about the project.</p>
             <div className="grid grid-cols-2 gap-3">
               <SocialLink icon="✉️" label="Email"    href="mailto:team@example.com" />
               <SocialLink icon="🐙" label="GitHub"   href="https://github.com" />
