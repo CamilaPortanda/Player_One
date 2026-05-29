@@ -4,8 +4,19 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import barChart from '../assets/barchart.png'
 import pieChart from '../assets/piechart.png'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 function Dashboard() {
+  const navigate = useNavigate()
+
+  const permisos = JSON.parse(localStorage.getItem('permisos') || '{}')
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token || !permisos.dashboard) navigate('/')
+  }, [])
+
   return (
     <div className="bg-white min-h-screen">
       <Header />
