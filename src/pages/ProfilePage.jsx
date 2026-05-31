@@ -170,6 +170,12 @@ function ProfilePage() {
 
   const totalScore = Object.values(scores).reduce((acc, s) => acc + Number(s), 0)
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('avatarUrl')
+    window.location.href = '/'
+  }
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -259,6 +265,12 @@ function ProfilePage() {
                 </div>
               </div>
             ))}
+            <button
+              onClick={handleSignOut}
+              className="w-full py-3 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition-colors cursor-pointer"
+            >
+              Sign Out
+            </button>
           </div>
 
         </div>
