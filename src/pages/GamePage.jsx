@@ -1,4 +1,7 @@
 import { Unity, useUnityContext } from "react-unity-webgl";
+import Header from '../components/Header';
+import { useState, useRef, useCallback } from "react";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../components/Header'
@@ -14,7 +17,7 @@ function FullscreenIcon() {
     </svg>
   );
 }
- 
+
 const styles = {
   page: {
     backgroundColor: "#9B0032",
@@ -37,6 +40,26 @@ const styles = {
     position: "relative",
     width: "100%",
     maxWidth: "960px",
+    aspectRatio: "16 / 9",
+  },
+  // Overlay que cubre toda la pantalla con el rojo de fondo
+  fullscreenOverlay: {
+    position: "fixed",
+    inset: 0,
+    backgroundColor: "#9B0032",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+  },
+  // El canvas dentro del fullscreen respeta 16:9 con letterbox rojo
+  fullscreenCanvas: {
+    width: "100%",
+    height: "100%",
+    maxWidth: "calc(100vh * 16 / 9)",
+    maxHeight: "calc(100vw * 9 / 16)",
+    display: "block",
+    backgroundColor: "#000000",
   },
   loadingOverlay: {
     position: "absolute",
@@ -65,7 +88,7 @@ const styles = {
   canvas: {
     display: "block",
     width: "100%",
-    aspectRatio: "16 / 9",
+    height: "100%",
     borderRadius: "12px",
     backgroundColor: "#000000",
     border: "1px solid rgba(255,255,255,0.08)",
@@ -99,9 +122,22 @@ const styles = {
     fontFamily: "Arial, sans-serif",
     transition: "background 0.15s",
   },
+  exitHint: {
+    position: "absolute",
+    bottom: "16px",
+    right: "16px",
+    color: "rgba(255,255,255,0.6)",
+    fontSize: "12px",
+    pointerEvents: "none",
+  },
 };
- 
+
 function GamePage() {
+  const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
+    loaderUrl: "/unity/game/VJ_ver3000.loader.js",
+    dataUrl: "/unity/game/VJ_ver3000.data",
+    frameworkUrl: "/unity/game/VJ_ver3000.framework.js",
+    codeUrl: "/unity/game/VJ_ver3000.wasm",
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -121,49 +157,74 @@ function GamePage() {
     frameworkUrl: "/unity/game/VJ.framework.js",
     codeUrl: "/unity/game/VJ.wasm",
   });
- 
+
   const pct = Math.round(loadingProgression * 100);
- 
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Escuchar ESC o cambios nativos de fullscreen
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Escape") setIsFullscreen(false);
+  }, []);
+
+  const enterFullscreen = () => {
+    setIsFullscreen(true);
+    window.addEventListener("keydown", handleKeyDown, { once: true });
+  };
+
+  const exitFullscreen = () => setIsFullscreen(false);
+
+  const LoadingBar = () => (
+    !isLoaded && (
+      <div style={styles.loadingOverlay}>
+        <p style={styles.loadingText}>Loading {pct}%</p>
+        <div style={styles.progressBarTrack}>
+          <div
+            style={{
+              height: "100%",
+              width: `${pct}%`,           // ← bug arreglado
+              backgroundColor: "#9B0032",
+              borderRadius: "3px",
+              transition: "width 0.2s ease",
+            }}
+          />
+        </div>
+      </div>
+    )
+  );
+
+  // Modo fullscreen: overlay fixed con letterbox rojo
+  if (isFullscreen) {
+    return (
+      <div style={styles.fullscreenOverlay} onClick={exitFullscreen}>
+        <div
+          style={{ position: "relative", ...styles.fullscreenCanvas }}
+          onClick={(e) => e.stopPropagation()} // evita cerrar al clickear el canvas
+        >
+          <LoadingBar />
+          <Unity unityProvider={unityProvider} style={{ width: "100%", height: "100%", display: "block" }} />
+        </div>
+        <p style={styles.exitHint}>Presiona ESC o haz clic fuera para salir</p>
+      </div>
+    );
+  }
+
+  // Modo normal
   return (
     <div style={styles.page}>
       <Header />
- 
-      {/* Main content */}
       <main style={styles.main}>
         <div style={styles.gameWrapper}>
-          {/* Loading overlay */}
-          {!isLoaded && (
-            <div style={styles.loadingOverlay}>
-              <p style={styles.loadingText}>Loading {pct}%</p>
-              <div style={styles.progressBarTrack}>
-                <div
-                  style={{
-                    height: "100%",
-                    width: `${pct}%`,
-                    backgroundColor: "#C8102E",
-                    borderRadius: "3px",
-                    transition: "width 0.3s ease",
-                  }}
-                />
-              </div>
-            </div>
-          )}
- 
-          {/* Unity canvas */}
-          <Unity
-            unityProvider={unityProvider}
-            style={styles.canvas}
-          />
+          <LoadingBar />
+          <Unity unityProvider={unityProvider} style={styles.canvas} />
         </div>
- 
-        {/* Footer row */}
+
         <div style={styles.footer}>
           <span style={styles.footerHint}>Use keyboard &amp; mouse to interact with the game</span>
           <button
             style={styles.fullscreenBtn}
-            onClick={() => requestFullscreen(true)}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.22)")}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)")}
+            onClick={enterFullscreen}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.22)")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)")}
           >
             <FullscreenIcon />
             Fullscreen
@@ -173,5 +234,5 @@ function GamePage() {
     </div>
   );
 }
- 
+
 export default GamePage;
