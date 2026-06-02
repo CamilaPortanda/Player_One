@@ -23,16 +23,16 @@ function Header() {
   }
 
   return (
-    <header className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4 border-b-4 md:border-b-8 border-[#CD163F]">
+    <header className="flex items-center justify-between px-4 md:px-8 py-2 md:py-3 border-b-4 md:border-b-8 border-[#CD163F]">
       
       <Link to="/">
-        <img src={logo} alt="Rockwell Automation Logo" className="h-10 sm:h-12 md:h-14" />      
+        <img src={logo} alt="Rockwell Automation Logo" className="h-8 sm:h-10 md:h-12" />      
       </Link>
 
       <div className="flex items-center gap-2 md:gap-3">
         <Link
           to="/productsPage"
-          className="flex items-center gap-2 px-4 md:px-7 py-2 md:py-2.5 border border-[#aaa] rounded-[20px] bg-[#9B0032] hover:bg-[#003e7e80] text-sm cursor-pointer text-white transition-colors"
+          className="flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 border border-[#aaa] rounded-[20px] bg-[#9B0032] hover:bg-[#003e7e80] text-sm cursor-pointer text-white transition-colors"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
@@ -41,7 +41,7 @@ function Header() {
         </Link>
         <button
           onClick={handleContact}
-          className="flex items-center gap-2 px-4 md:px-7 py-2 md:py-2.5 border border-[#aaa] rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm cursor-pointer text-white transition-colors"
+          className="flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 border border-[#aaa] rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm cursor-pointer text-white transition-colors"
         >
           {/* Ícono de email — visible siempre */}
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
