@@ -46,16 +46,13 @@ npm install
 npm i react-router-dom
 ```
 
-## Dependencias de estilos
+## Dependencias de estilos y graficas 
 
 ```bash
 npm i -D tailwindcss @tailwindcss/vite
-```
-
-## Dependencias de estilos
-
-```bash
 npm install axios
+npm install react-simple-maps --legacy-peer-deps
+npm install chart.js react-chartjs-2 --legacy-peer-deps
 ```
 
 ## Dependencias para decodear token

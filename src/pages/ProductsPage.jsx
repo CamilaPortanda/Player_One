@@ -133,14 +133,18 @@ function Products() {
             <div
               key={product.product_id}
               onClick={() => setSelectedProduct(product)}
-              className="flex items-center justify-between bg-[#f5f5f5] rounded-3xl p-4 md:p-6 gap-4 cursor-pointer hover:shadow-md transition-shadow"
-            >
-              <p className="text-[#9B0032] font-bold text-base md:text-lg leading-snug w-1/2">{product.name_product}</p>
+              className="group bg-white rounded-3xl p-5 shadow-[0_2px_4px_rgba(0,0,0,0.1)] border border-gray-100 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#003e7e]/20 flex flex-col items-center text-center gap-4 "            >
               <img
                 src={product.image_link}
                 alt={product.name_product}
-                className="w-1/2 object-contain max-h-28 md:max-h-36"
+                className="h-36 object-contain transition-transform duration-300 group-hover:scale-105"
               />
+              <p className="text-[#003e7e] font-bold text-lg leading-tight min-h-[56px] flex items-center justify-center ">{product.name_product}</p>
+              <div
+                className=" px-4 py-2 rounded-full bg-[#003e7e] text-white text-sm font-semibold group-hover:bg-[#9B0032] transition-colors"
+              >
+                View details
+              </div>
             </div>
           ))}
         </div>

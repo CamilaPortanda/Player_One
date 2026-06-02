@@ -63,24 +63,24 @@ function MainPage() {
       {/* ── Hero section ── */}
       <main className="relative flex items-center min-h-[calc(100vh-80px)] px-6 md:px-16 overflow-hidden">
         <div className="relative z-10 flex flex-col max-w-xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
             Is your company really <span className="italic">protected?</span>
           </h1>
-          <p className="text-[#003e7e] text-lg md:text-2xl mt-4">
+          <p className="text-[#003e7e] text-md md:text-xl mt-4">
             Find out through our interactive experience.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             {autenticado ? (
-              <Link to="/gamePage" className="px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
+              <Link to="/gamePage" className="px-5 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
                 Try our videogame
               </Link>
             ) : (
-              <Link to="/logIn" className="px-7 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
+              <Link to="/logIn" className="px-5 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white transition-colors w-fit">
                 Sign In
               </Link>
             )}
             {autenticado && permisos.dashboard && (
-              <Link to="/dashboard" className="px-7 py-2.5 rounded-[20px] bg-[#9B0032] hover:bg-[#9B0032]/70 text-sm text-white transition-colors w-fit">
+              <Link to="/dashboard" className="px-5 py-2.5 rounded-[20px] bg-[#9B0032] hover:bg-[#9B0032]/70 text-sm text-white transition-colors w-fit">
                 Check Dashboard
               </Link>
             )}
@@ -106,7 +106,7 @@ function MainPage() {
       {/* Video */}
       <div
         ref={videoRef}
-        className="relative w-full max-w-sm mx-auto lg:max-w-none lg:w-[480px] flex-shrink-0 transition-all duration-700 ease-out"
+        className="relative w-full max-w-sm mx-auto lg:max-w-none lg:w-[420px] flex-shrink-0 transition-all duration-700 ease-out"
         style={{
           opacity: videoInView ? 1 : 0,
           transform: videoInView ? 'translateY(0)' : 'translateY(40px)',
@@ -188,26 +188,26 @@ function MainPage() {
             transform: textInView ? 'translateY(0)' : 'translateY(40px)',
           }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#770046]">Play. Learn. Protect.</h2>
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+          <h2 className="text-xl md:text-3xl font-bold text-[#770046]">Play. Learn. Protect.</h2>
+          <p className="text-base md:text-sm text-gray-700 leading-relaxed font-medium">
             Our project is an interactive gaming experience developed in collaboration with{' '}
             <Highlight inView={textInView} delay={300}>Rockwell Automation</Highlight>.
             Through a story-driven arcade adventure, players explore the world of Operational Technology (OT),
             Information Technology (IT), and Industrial Cybersecurity while discovering the importance of
             protecting modern industries from digital threats.
           </p>
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+          <p className="text-base md:text-sm text-gray-700 leading-relaxed font-medium">
             The game combines{' '}<Highlight inView={textInView} delay={700}>RPG-style storytelling</Highlight>{' '}with fast-paced{' '}
             <Highlight inView={textInView} delay={1000}>arcade minigames</Highlight>{' '}inspired by real industrial
             environments and technologies. Players begin in a familiar office setting before being transported into
             a fictional world where they must overcome cybersecurity challenges across different industries.
           </p>
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+          <p className="text-base md:text-sm text-gray-700 leading-relaxed font-medium">
             Designed primarily for mobile devices and exhibition environments, the experience is approachable even
             for people with little to no gaming experience. The game features interactive NPCs, exploration, score
             tracking, and a final boss battle that unlocks after completing all three cybersecurity-themed minigames.
           </p>
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+          <p className="text-base md:text-sm text-gray-700 leading-relaxed font-medium">
             On your right, you can watch a demo showcasing the game's environments, gameplay mechanics, and overall experience.
           </p>
         </div>

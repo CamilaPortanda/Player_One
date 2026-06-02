@@ -39,7 +39,7 @@ function LogIn() {
     <div className="bg-[#9B0032] min-h-screen">
       <Header />
       <main className="flex justify-center items-center min-h-[calc(100vh-80px)] py-8 px-4">
-        <div className="relative flex flex-col justify-center bg-[#fcfcfc] rounded-2xl p-8 md:p-10 w-full max-w-[550px] min-h-[400px] md:h-[450px] shadow-[0px_4px_12px_rgba(0,0,0,0.20)]">
+        <div className="relative flex flex-col justify-center bg-[#fcfcfc] rounded-2xl p-6 md:p-8 w-full max-w-[500px] min-h-[400px] md:h-[430px] shadow-[0px_4px_12px_rgba(0,0,0,0.20)]">
 
           <Link
             to="/"
