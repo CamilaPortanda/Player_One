@@ -116,10 +116,10 @@ function GamePage() {
     loadingProgression,
     requestFullscreen,
   } = useUnityContext({
-    loaderUrl: "/unity/game/IntentoFinalCreo.loader.js",
-    dataUrl: "/unity/game/IntentoFinalCreo.data",
-    frameworkUrl: "/unity/game/IntentoFinalCreo.framework.js",
-    codeUrl: "/unity/game/IntentoFinalCreo.wasm",
+    loaderUrl: "/unity/game/VJ_2June_v2.loader.js",
+    dataUrl: "/unity/game/VJ_2June_v2.data",
+    frameworkUrl: "/unity/game/VJ_2June_v2.framework.js",
+    codeUrl: "/unity/game/VJ_2June_v2.wasm",
   });
  
   const pct = Math.round(loadingProgression * 100);
