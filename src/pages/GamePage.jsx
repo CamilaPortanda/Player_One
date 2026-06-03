@@ -115,12 +115,27 @@ function GamePage() {
     isLoaded,
     loadingProgression,
     requestFullscreen,
+    sendMessage,
   } = useUnityContext({
     loaderUrl: "/unity/game/IntentoFinalCreo.loader.js",
     dataUrl: "/unity/game/IntentoFinalCreo.data",
     frameworkUrl: "/unity/game/IntentoFinalCreo.framework.js",
     codeUrl: "/unity/game/IntentoFinalCreo.wasm",
   });
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      sendMessage(
+        "GameManager",
+        "ReceiveToken",
+        token
+      );
+    }
+  }, [isLoaded, sendMessage]);
  
   const pct = Math.round(loadingProgression * 100);
  
