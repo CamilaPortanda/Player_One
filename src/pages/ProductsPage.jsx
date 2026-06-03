@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Header from '../components/Header'
 
@@ -96,8 +96,18 @@ function Products() {
 
   const permisos = JSON.parse(localStorage.getItem('permisos') || '{}')
   const canEdit = permisos.edit_products === true
-
+  const eventLogged = useRef(false)
   useEffect(() => {
+    if (eventLogged.current) return
+    eventLogged.current = true
+
+    const token = localStorage.getItem('token')
+    if (token) {
+      axios.post(import.meta.env.VITE_API_URL + '/api/events/product-view', {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).catch(err => console.log('Event log error:', err))
+    }
+    
     axios.get(import.meta.env.VITE_API_URL + '/api/products')
       .then(res => setProducts(res.data))
       .catch(() => setError('No se pudieron cargar los productos'))
@@ -108,6 +118,17 @@ function Products() {
       prev.map(p => p.product_id === product_id ? { ...p, desc_product: newDesc } : p)
     )
     setSelectedProduct(prev => ({ ...prev, desc_product: newDesc }))
+  }
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product)
+    const token = localStorage.getItem('token')
+    if (token) {
+      axios.post(import.meta.env.VITE_API_URL + '/api/events/product-click',
+        { product_id: product.product_id },
+        { headers: { Authorization: `Bearer ${token}` } }
+      ).catch(err => console.log('Event log error:', err))
+    }
   }
 
   return (
@@ -132,7 +153,7 @@ function Products() {
           {products.map((product) => (
             <div
               key={product.product_id}
-              onClick={() => setSelectedProduct(product)}
+              onClick={() => handleProductClick(product)}
               className="group bg-white rounded-3xl p-5 shadow-[0_2px_4px_rgba(0,0,0,0.1)] border border-gray-100 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#003e7e]/20 flex flex-col items-center text-center gap-4 "            >
               <img
                 src={product.image_link}

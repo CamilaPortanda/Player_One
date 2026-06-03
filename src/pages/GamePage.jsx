@@ -117,10 +117,10 @@ function GamePage() {
     requestFullscreen,
     sendMessage,
   } = useUnityContext({
-    loaderUrl: "/unity/game/IntentoFinalCreo.loader.js",
-    dataUrl: "/unity/game/IntentoFinalCreo.data",
-    frameworkUrl: "/unity/game/IntentoFinalCreo.framework.js",
-    codeUrl: "/unity/game/IntentoFinalCreo.wasm",
+    loaderUrl: "/unity/game/VJ_2June.loader.js",
+    dataUrl: "/unity/game/VJ_2June.data",
+    frameworkUrl: "/unity/game/VJ_2June.framework.js",
+    codeUrl: "/unity/game/VJ_2June.wasm",
   });
 
   useEffect(() => {
@@ -137,6 +137,7 @@ function GamePage() {
     }
   }, [isLoaded, sendMessage]);
  
+
   const pct = Math.round(loadingProgression * 100);
  
   return (
