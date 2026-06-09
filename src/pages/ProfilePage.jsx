@@ -173,6 +173,7 @@ function ProfilePage() {
   const handleSignOut = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('avatarUrl')
+    localStorage.removeItem('permisos')
     window.location.href = '/'
   }
 
