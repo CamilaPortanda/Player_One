@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Abrazo from '../assets/abrazo.png'
 import { ComposableMap, Geographies, Geography, } from "react-simple-maps"
@@ -47,6 +48,7 @@ function StatCard({ title, children, accent }) {
 }
 
 export default function DashboardPage() {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     percentage: [],
     avgMedian: [],
@@ -58,6 +60,14 @@ export default function DashboardPage() {
   })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const permisos = JSON.parse(localStorage.getItem('permisos') || '{}')
+    if (!token || !permisos.dashboard) {
+      navigate('/')
+    }
+  }, [])
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -159,8 +169,8 @@ export default function DashboardPage() {
 
   const rankingWithNames = data.ranking.map(t => {
     const product = data.products.find(p => p.product_id === t.product_id)
-    return { ...t, name: product?.name_product || `Product ${t.product_id}`, clicks: parseInt(t.total_clicks) }
-  })
+    return { ...t, name: product?.name_product || `Product ${t.product_id}`, clicks: parseInt(t.total_clicks), active: product?.active }
+  }).filter(p => p.active === true)
   const totalClicks = rankingWithNames.reduce((acc, t) => acc + t.clicks, 0)
 
   const geoUrl =

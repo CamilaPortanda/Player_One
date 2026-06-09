@@ -117,10 +117,10 @@ function GamePage() {
     requestFullscreen,
     sendMessage,
   } = useUnityContext({
-    loaderUrl: "/unity/game/VJ_2June.loader.js",
-    dataUrl: "/unity/game/VJ_2June.data",
-    frameworkUrl: "/unity/game/VJ_2June.framework.js",
-    codeUrl: "/unity/game/VJ_2June.wasm",
+    loaderUrl: "/unity/game/VJ_CasiFinal3.loader.js",
+    dataUrl: "/unity/game/VJ_CasiFinal3.data",
+    frameworkUrl: "/unity/game/VJ_CasiFinal3.framework.js",
+    codeUrl: "/unity/game/VJ_CasiFinal3.wasm",
   });
 
   useEffect(() => {

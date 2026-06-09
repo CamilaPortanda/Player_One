@@ -46,12 +46,16 @@ function MainPage() {
       const expirado = decoded.exp * 1000 < Date.now();
       if (expirado) {
         localStorage.removeItem("token");
+        localStorage.removeItem("permisos");
+        localStorage.removeItem("avatarUrl");
         setAutenticado(false);
       } else {
         setAutenticado(true);
       }
     } catch (err) {
       localStorage.removeItem("token");
+      localStorage.removeItem("permisos");
+      localStorage.removeItem("avatarUrl");
       setAutenticado(false);
     }
   }, []);
