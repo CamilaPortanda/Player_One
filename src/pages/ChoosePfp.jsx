@@ -31,7 +31,7 @@ function ChoosePfp() {
     }
   }
  
-  const handleSkip = () => handleReady(1)
+  const handleSkip = () => handleReady(2)
   const handleConfirm = () => handleReady(pfps[selectedIndex]?.pfp_id)
  
   const prev = () => setSelectedIndex(i => (i - 1 + pfps.length) % pfps.length)

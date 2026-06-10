@@ -132,10 +132,10 @@ function GamePage() {
     loadingProgression,
     requestFullscreen,
   } = useUnityContext({
-    loaderUrl: "/unity/game/VJ_CasiFinal3.loader.js",
-    dataUrl: "/unity/game/VJ_CasiFinal3.data",
-    frameworkUrl: "/unity/game/VJ_CasiFinal3.framework.js",
-    codeUrl: "/unity/game/VJ_CasiFinal3.wasm",
+    loaderUrl: "/unity/game/VJ_FINAL.loader.js",
+    dataUrl: "/unity/game/VJ_FINAL.data",
+    frameworkUrl: "/unity/game/VJ_FINAL.framework.js",
+    codeUrl: "/unity/game/VJ_FINAL.wasm",
   });
  
 
