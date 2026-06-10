@@ -7,6 +7,22 @@ function ProductModal({ product, onClose, onUpdated, canEdit }) {
   const [desc, setDesc] = useState(product.desc_product)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+
+  const handleRockClick = () => {
+    const token = localStorage.getItem('token')
+    const config = token
+    ? { headers: { Authorization: `Bearer ${token}` } }
+    : {}
+
+    axios.post(
+      import.meta.env.VITE_API_URL + '/api/events/rock-view',
+      {
+        product_id: product.product_id
+      },
+      config
+    ).catch(err => console.log('Event log error:', err))
+    
+  }
  
   const handleSave = async () => {
     setSaving(true)
@@ -16,6 +32,21 @@ function ProductModal({ product, onClose, onUpdated, canEdit }) {
         import.meta.env.VITE_API_URL + `/api/products/${product.product_id}`,
         { desc_product: desc }
       )
+
+      const token = localStorage.getItem('token')
+      const config = token
+      ? { headers: { Authorization: `Bearer ${token}` } }
+      : {}
+
+      axios.post(
+        import.meta.env.VITE_API_URL + '/api/events/desc-changed',
+        {
+          product_id: product.product_id
+        },
+        config
+      ).catch(err => console.log('Event log error:', err))
+    
+
       onUpdated(product.product_id, desc)
       setEditing(false)
     } catch (err) {
@@ -58,8 +89,13 @@ function ProductModal({ product, onClose, onUpdated, canEdit }) {
             <>
               <button onClick={onClose}
                 className="flex-1 py-2.5 border border-[#bebebe] rounded-[20px] text-sm text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors">Close</button>
-              <a href={product.html_link} target="_blank" rel="noopener noreferrer"
-                className="flex-1 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white text-center cursor-pointer transition-colors">
+              <a
+                href={product.html_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleRockClick}
+                className="flex-1 py-2.5 rounded-[20px] bg-[#003e7e] hover:bg-[#003e7e80] text-sm text-white text-center cursor-pointer transition-colors"
+              >
                 More information
               </a>
             </>
@@ -91,6 +127,17 @@ function AddProductModal({ onClose, onAdded }) {
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       )
+
+      axios.post(
+        import.meta.env.VITE_API_URL + '/api/events/product-added',
+        {
+          product_id: res.data.product_id
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      ).catch(err => console.log('Event log error:', err))
+
       onAdded(res.data)
       onClose()
     } catch (err) {
@@ -168,11 +215,12 @@ function Products() {
     eventLogged.current = true
  
     const token = localStorage.getItem('token')
-    if (token) {
-      axios.post(import.meta.env.VITE_API_URL + '/api/events/product-view', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).catch(err => console.log('Event log error:', err))
-    }
+    const config = token
+    ? { headers: { Authorization: `Bearer ${token}` } }
+    : {}
+
+    axios.post(import.meta.env.VITE_API_URL + '/api/events/product-view', {}, config)
+    .catch(err => console.log('Event log error:', err))
  
     axios.get(import.meta.env.VITE_API_URL + '/api/products')
       .then(res => setProducts(res.data))
@@ -187,13 +235,16 @@ function Products() {
   const handleProductClick = (product) => {
     setSelectedProduct(product)
     const token = localStorage.getItem('token')
-    if (token) {
+    const config = token
+    ? { headers: { Authorization: `Bearer ${token}` } }
+    : {}
+
       axios.post(import.meta.env.VITE_API_URL + '/api/events/product-click',
         { product_id: product.product_id },
-        { headers: { Authorization: `Bearer ${token}` } }
+        config
       ).catch(err => console.log('Event log error:', err))
-    }
   }
+
  
   const handleAdded = (newProduct) => {
     setProducts(prev => [...prev, newProduct])

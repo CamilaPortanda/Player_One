@@ -1,6 +1,7 @@
 import { Unity, useUnityContext } from "react-unity-webgl";
-import { useEffect } from "react";
+import { useEffect, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import Header from '../components/Header'
  
 // Fullscreen icon SVG
@@ -103,13 +104,28 @@ const styles = {
  
 function GamePage() {
   const navigate = useNavigate()
+  const eventLogged = useRef(false)
 
   useEffect(() => {
+    if (eventLogged.current) return
+    eventLogged.current = true
     const token = localStorage.getItem('token')
+
     if (!token) {
       navigate('/login')
+      return
     }
-  }, [])
+
+    axios.post(
+      import.meta.env.VITE_API_URL + '/api/events/game-view',
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    ).catch(err => console.log('Event log error:', err))
+
+  }, [navigate])
+
   const {
     unityProvider,
     isLoaded,

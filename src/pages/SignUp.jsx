@@ -21,6 +21,7 @@ function SignUp() {
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [error, setError] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
   // Fetch countries
@@ -56,9 +57,13 @@ function SignUp() {
 
   const handleRegister = async () => {
     setError('');
-    if (!name || !lastName || !email || !password || !phone || !industryId || !company || !jobPosition) {
+    if (!name || !lastName || !email || !password || !confirmPassword || !phone || !industryId || !company || !jobPosition) {
       setError('Por favor, completa todos los campos');
       return;
+    }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
+      return
     }
     if (!emailRegex.test(email)) {
       setError('Please enter a valid email address');
@@ -110,7 +115,7 @@ function SignUp() {
               </div>
             ) : null}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 mb-2.5">
 
               <input type="text" placeholder="Name(s)" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
 
@@ -166,9 +171,15 @@ function SignUp() {
 
               <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
 
-              <input type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} className={inputClass} />
 
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} />
+              {/* Password */}
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={inputClass}
+              />
 
               <select value={jobPosition} onChange={(e) => setJobPosition(e.target.value)} className={inputClass}>
                 <option value="">Job Position</option>
@@ -183,7 +194,22 @@ function SignUp() {
                 <option value="Others">Other</option>
               </select>
 
+              {/* Confirm Password */}
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={`${inputClass} ${
+                  confirmPassword && password !== confirmPassword
+                    ? 'border-red-400 focus:border-red-400'
+                    : confirmPassword && password === confirmPassword
+                    ? 'border-green-400 focus:border-green-400'
+                    : ''
+                }`}
+              />
             </div>
+            <input type="text" placeholder="Full Company Name" value={company} onChange={(e) => setCompany(e.target.value)} className={inputClass} />
 
             <button
               onClick={handleRegister}
