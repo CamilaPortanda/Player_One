@@ -225,7 +225,7 @@ function ProfilePage() {
             <div className="divide-y divide-gray-50">
               <InfoRow icon={<MailIcon />}     label="Email"        value={usuario.email.toLowerCase()} />
               <InfoRow icon={<PhoneIcon />}    label="Phone number" value={usuario.phone} />
-              <InfoRow icon={<BuildingIcon />} label="Industry"     value={usuario.industry} />
+              <InfoRow icon={<BuildingIcon />} label="Industry"     value={usuario.industry?.industry_name} />
             </div>
 
             {/* Stats row */}

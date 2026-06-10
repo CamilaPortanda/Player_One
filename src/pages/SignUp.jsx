@@ -57,7 +57,7 @@ function SignUp() {
 
   const handleRegister = async () => {
     setError('');
-    if (!name || !lastName || !email || !password || !confirmPassword || !phone || !industryId || !company || !jobPosition) {
+    if (!name || !lastName || !email || !password || !confirmPassword || !phone || !dialCode || !industryId || !company || !jobPosition) {
       setError('Por favor, completa todos los campos');
       return;
     }
